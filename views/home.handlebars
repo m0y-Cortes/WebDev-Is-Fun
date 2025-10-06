@@ -1,0 +1,25 @@
+<div id="main">
+    <div>
+        <h1>Main page</h1>
+        <p></p>
+                <br>
+        <button>+ Add recipe</button>
+        {{#each recipes}}
+            <div class="card-container">
+                <div class="card">
+{{!--  
+                   {{#if {{picture_path}} != NULL }}
+                     
+                    {{/if}} --}} 
+                        <img src="/images/defaultCardImage.jpg">
+                    <div class="card-content">
+                        <h3>{{title}}</h3>
+                        <p>{{description}}</p>
+                        <a href="#" class="btn"> See recipe</a>
+                    </div>
+                    
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
