@@ -51,13 +51,17 @@ app.post('/login', (req, res) => {
   return res.redirect(`/home`);
 });
 
-app.get('/home', function(req, res) {
+app.get('/home', (req, res) => {
+    res.render('home')
+});
+
+app.get('/list', function(req, res) {
     db.all('SELECT * FROM recipes', (error, recipesList) => {
         if (error) {
             res.send('Sorry an error ocurred :(' + error.message)
         } else {
             model= {recipes: recipesList}
-            res.render('home.handlebars', model)
+            res.render('list.handlebars', model)
         }
     })
 });
@@ -70,11 +74,7 @@ app.get('/contact', (req, res) => {
     res.render('contact')
 });
 
-app.get('/restrictedPage', (req, res) => {
-    res.render()
-})
-
-/* ------------ ROUTES ------------ */
+/* ------------------------ */
 app.listen(PORT, () => {
   console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
 });

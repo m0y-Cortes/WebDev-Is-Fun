@@ -1,25 +1,32 @@
 <div id="main">
     <div>
-        <h1>Main page</h1>
-        <p></p>
-                <br>
-        <button>+ Add recipe</button>
-        {{#each recipes}}
-            <div class="card-container">
-                <div class="card">
-{{!--  
-                   {{#if {{picture_path}} != NULL }}
-                     
-                    {{/if}} --}} 
-                        <img src="/images/defaultCardImage.jpg">
-                    <div class="card-content">
-                        <h3>{{title}}</h3>
-                        <p>{{description}}</p>
-                        <a href="#" class="btn"> See recipe</a>
-                    </div>
-                    
+        <h1>HOME PAGE</h1>
+        <div class="card-container">
+            <div class="card">
+                    <img src="/images/defaultCardImage.jpg">
+                <div class="card-content">
+                    <h3>ABOUT THE CREATOR</h3>
+                    <a href="./about" class="btn"> See more</a>
                 </div>
             </div>
-        {{/each}}
+        </div>
+        <div class="card-container">
+            <div class="card">
+                    <img src="/images/defaultCardImage.jpg">
+                <div class="card-content">
+                    <h3>SEE ALL THE RECIPES</h3>
+                    <a href="./list" class="btn"> See more</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-container">
+            <div class="card">
+                    <img src="/images/defaultCardImage.jpg">
+                <div class="card-content">
+                    <h3>CONTACT US</h3>
+                    <a href="./contact" class="btn"> See more</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
