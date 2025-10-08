@@ -1,15 +1,15 @@
 
+<h1 class="pageTitle">Log In</h1>
 <div id="loginForm">
-  <h1>Login</h1>
   {{#if error}}
-    <p style="color: red;">{{error}}</p>
+    <p class="errorMessage">{{error}}</p>
   {{/if}}
   
   <form method="POST" action="/login">
     <fieldset>
         <div>
           <label>
-            Nombre:
+            Username:
             <input type="text" name="username" />
           </label>
         </div>
@@ -17,13 +17,13 @@
         <div>
         
           <label>
-            Contraseña:
+            Password:
             <input type="password" name="password" />
           </label>
         </div>
         <br/><br/>
       <div>
-        <button type="submit">Ingresar</button>
+        <button type="submit">Enter</button>
       </div>
     </fieldset>
   </form>

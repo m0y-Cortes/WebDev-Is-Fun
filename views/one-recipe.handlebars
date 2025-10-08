@@ -1,0 +1,10 @@
+<div id="main">
+    <h1 class="pageTitle">{{recipe.title}}</h1>
+    <div>
+        <p>{{recipe.description}}</p>
+
+        {{#if error}}
+            <p class="errorMessage">{{error}}</p>
+        {{/if}}
+    </div>
+</div>

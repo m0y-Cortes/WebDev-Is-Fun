@@ -7,15 +7,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORANGE KAFFE {{{tittle}}}</title>
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <header>  {{!-- A NavBar that is always present --}}
     <ul>
         <li><img class="headerIcon" src="/images/chef-hat.svg" alt="chef-hat"></li>
-        <li><a href="./home">ORANGE KAFFE</a></li>
-        <li><a href="./about">ABOUT</a></li>
-        <li><a href="./contact">CONTACT</a></li>
-        <li style="float:right"><img class="headerIcon" src="/images/chef-hat.svg" alt="chef-hat"></li> {{!-- Here goes the user icon --}}
+        <li><a href="/">ORANGE KAFFE</a></li>
+        <li><a href="/about">ABOUT</a></li>
+        <li><a href="/contact">CONTACT</a></li>
+        {{#if session.isLoggedIn}}
+            <li style="color: white;">VÄLKOMMEN {{session.username}}!</li>
+            <li><a href="/logout">LOG OUT</a></li>
+        {{else}}
+            <li><a href="/login">LOGIN</a></li>
+        {{/if}}
+
+        {{!-- <li style="float:right"><img class="headerIcon" src="/images/chef-hat.svg" alt="chef-hat"></li> Here goes the user icon --}}
     </ul>
 </header>
 <body>

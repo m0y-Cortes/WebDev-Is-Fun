@@ -1,24 +1,32 @@
+<h1 class="pageTitle">RECIPES PAGE</h1>
 <div id="main">
     <div>
-        <h1>RECIPES PAGE</h1>
-        <p></p>
-        <br>
-        <button>+ Add recipe</button>
-        {{#each recipes}}
-            <div class="card-container">
-                <div class="card">
-                    {{!--  {{#if {{picture_path}} != NULL }}
-                     
-                    {{/if}} --}} 
-                        <img src="/images/defaultCardImage.jpg">
-                    <div class="card-content">
-                        <h3>{{title}}</h3>
-                        <p>{{description}}</p>
-                        <a href="#" class="btn"> See recipe</a>
-                    </div>
-                    
+        {{#if session.isAdmin}}
+            <form method="GET" action="/list/new"></form>
+            <button type="submit">Add Recipe</button>
+        {{/if}}
+    </div>
+    {{#each recipes}}
+        <div class="card-container">
+            <div class="card">
+                <img src="/images/defaultCardImage.jpg">
+                <div class="card-content">
+                    <h3>{{title}}</h3>
+                    <p>{{description}}</p>
+                    <a href="/list/{{recipe_id}}" class="btn"> See recipe</a>
+                    <form style="display: inline;" method="POST" action="/list/edit/{{recipe_id}}">
+                        <button type="submit">Delete</button>
+                    </form>
+                    <form style="display: inline;" method="POST" action="/list/delete/{{recipe_id}}">
+                        <button type="submit">Delete</button>
+                    </form>
                 </div>
             </div>
-        {{/each}}
+        </div>
+    {{/each}}
+    <div>
     </div>
+    {{#if error}}
+        <p class="errorMessage">{{error}}</p>
+    {{/if}}
 </div>
