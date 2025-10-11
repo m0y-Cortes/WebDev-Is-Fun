@@ -25,14 +25,24 @@
             <label for="instruc">Instructions</label>
             <textarea name="instruc" id="instruc" rows="8", cols="40">{{#if recipe.instructions}}{{recipe.instructions}}{{/if}}</textarea>
             <br />
-            <label for="credits">Category</label>
-            <select name="categ" id="categ">
-                <option value=1 {{#if (eq recipe.category_id 1)}} selected {{/if}}
-                >Drink</option>
-                <option value=2 {{#if (eq recipe.category_id 2)}} selected {{/if}}
-                >Dessert</option>
+            <label for="categid">Category</label>
+            <select name="categid" id="categid">
+                //When updating a Recipe this option can be the default selected
+                {{#if recipe.recipe_id}}    
+                    <option value=1 {{#if (eq recipe.category_id 1)}} selected {{/if}}  //Using EQuity from the handlebars helper
+                    >Cakes/Pastries</option>
+                {{else}}   
+                    //But when creating a new Recipe the default value will be "Cakes/Pastries"
+                    <option value=1 selected>Cakes/Pastries</option>
+                {{/if}}
+                <option value=2 {{#if (eq recipe.category_id 2)}} selected {{/if}} 
+                >Hot Drinks</option>
                 <option value=3 {{#if (eq recipe.category_id 3)}} selected {{/if}}
-                >Smoothie</option>
+                >Cold Drinks</option>
+                <option value=4 {{#if (eq recipe.category_id 4)}} selected {{/if}}
+                >Desserts/Sweets</option>
+                <option value=5 {{#if (eq recipe.category_id 5)}} selected {{/if}}
+                >Specialty Items</option>
             </select>
             <br />  
             <label for="title">Credits</label>
