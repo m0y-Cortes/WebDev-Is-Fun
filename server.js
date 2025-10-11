@@ -14,13 +14,21 @@ const session = require('express-session')
 const sqlite3 = require('sqlite3') //loads the sqlite packae
 const connectSqlite3 = require('connect-sqlite3') //store the sessions in a SQLite3 DB file 
 
-const app = express();
 const PORT = 3000;
+const app = express();
+
 const adminPassword = "$2b$12$IPFhrIOq9SqSR5tPX85IgeAJLfn0ITVQWtsf2XT1CtH8btUfEumuu"
-/* ------------ Handlebars config ------------- */
-app.engine('handlebars', engine({ defaultLayout: 'main', extname: '.handlebars' }));
 app.use(express.static('public'))
-app.set('view engine', 'handlebars');
+/* ------------ Handlebars config ------------- */
+app.engine('handlebars', 
+    engine({
+        helpers: {
+            eq (a,b) { return a==b; }
+        }
+    })
+) // initialize the engine to be handlebars
+app.set('view engine', 'handlebars') // set handlebars as the view engine
+app.set('views', './views') // define the views directory to be ./views
 app.use(express.urlencoded({ extended: false }));
 /* -------------------------------------------- */
 /* ------------ DB conection ------------ */
@@ -85,7 +93,8 @@ app.get('/logout', (req, res) => {
         }
     })
 });
-//-------------- READ
+
+//-------------- LISTING VIEW
 app.get('/list', function(req, res) {
     db.all('SELECT * FROM recipes ', (error, recipesList) => {
         if (error) {
@@ -96,6 +105,36 @@ app.get('/list', function(req, res) {
         }
     })
 });
+//-------------- CREATE
+app.get('/list/new', (req, res) => {
+    if (req.session.isAdmin) {
+        res.render('form-recipe')
+    } else {
+        model = {error: "You need to be logged in to create a new Recipe"}
+        res.render('list', model)
+    }
+});
+app.post('/list/new', (req, res) => {
+    console.log(`Here comes the data received from the form on the client: ${JSON.stringify(req.body)} `)
+    const {title, desc, ingred, instruc, credits, categid} = req.body
+    if (req.session.isAdmin) {
+        db.run('INSERT INTO recipes (title, description, ingredients, instructions, credits, category_id) VALUES (?, ?, ?, ?, ?, ?)', [title, desc, ingred, instruc, credits, categid], (error) => {
+            if (error) {
+                console.error(error.message);
+                const model = {error: "Error inserting the new recipe into de DB :( "}
+                res.render('list', model);
+            } else {
+                console.log('New Recipe created :) ')
+                res.redirect('/list')
+            }
+        })
+    } else {
+        model = {error: "You need to be logged in to create a new Recipe "}
+        res.render('login', model)
+    }
+});
+
+//-------------- READ SINGLE
 app.get('/list/:recipe_id', function(req, res) {
     let myRecipeId=req.params.recipe_id
     db.get('SELECT * FROM recipes WHERE recipe_id=?', [myRecipeId], (error, theRecipe) => {  //use db.get when there is a condition for the request
@@ -104,12 +143,31 @@ app.get('/list/:recipe_id', function(req, res) {
             const model = { error: 'An error ocurred while retiving the recipe :( ' }
             res.render('one-Recipe', model);
         } else {
-            console.log(`---> Retrived ${theRecipe.length} Recipes from DB`);
+            console.log(`---> Retrived Recipes from DB`);
             console.log(`---> Recipe: ${JSON.stringify(theRecipe)}`);
             const model = {recipe: theRecipe}
             res.render('one-recipe', model);
         }
     })
+});
+//-------------- UPDATE
+app.get('/list/update/:recipe_id', (req, res) => {
+    let myRecipeId= req.params.recipe_id
+    if (req.session.isAdmin) {
+        db.get('SELECT * FROM recipes WHERE recipe_id?', [myRecipeId], (error, theRecipe) => {
+            if (error) {
+                console.error(error.message);
+                const model = {error: "Error geting the recipe from DB"}
+                res.render('home', model);
+            } else {
+                const model = {recipe: theRecipe};
+                res.render('form-recipe', model);
+            }
+        })
+    } else {
+        model = {error: "You need to be logged in to do this :( "}
+        res.render('login', model);
+    }
 });
 //-------------- DELETE
 app.post('/list/delete/:recipe_id', (req, res) => {
@@ -127,21 +185,8 @@ app.post('/list/delete/:recipe_id', (req, res) => {
         })
     } else {
         model = {error: "You need to be loged in as an ADMIN to delete a post"}
-        res.render('/login', model)
+        res.render('login', model)
     }
-});
-//-------------- CREATE
-app.get('/list/new', (req, res) => {
-    if (req.session.isLoggedIn) {
-        res.render('form-recipe')
-    } else {
-        model = {error: "You need to be logged in to create a new Recipe"}
-        res.render('list', model)
-    }
-});
-//-------------- UPDATE
-app.get('/list/update/:recipe_id', (req, res) => {
-
 });
 
 app.get('/about', (req, res) => {

@@ -2,8 +2,7 @@
 <div id="main">
     <div>
         {{#if session.isAdmin}}
-            <form method="GET" action="/list/new"></form>
-            <button type="submit">Add Recipe</button>
+            <a href="/list/new">Add a recipe</a>
         {{/if}}
     </div>
     {{#each recipes}}
@@ -15,7 +14,7 @@
                     <p>{{description}}</p>
                     <a href="/list/{{recipe_id}}" class="btn"> See recipe</a>
                     <form style="display: inline;" method="POST" action="/list/edit/{{recipe_id}}">
-                        <button type="submit">Delete</button>
+                        <button type="submit">Edit</button>
                     </form>
                     <form style="display: inline;" method="POST" action="/list/delete/{{recipe_id}}">
                         <button type="submit">Delete</button>
@@ -24,8 +23,6 @@
             </div>
         </div>
     {{/each}}
-    <div>
-    </div>
     {{#if error}}
         <p class="errorMessage">{{error}}</p>
     {{/if}}

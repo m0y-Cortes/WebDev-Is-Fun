@@ -1,7 +1,11 @@
+<h1 class="pageTitle">{{recipe.title}}</h1>
 <div id="main">
-    <h1 class="pageTitle">{{recipe.title}}</h1>
     <div>
-        <p>{{recipe.description}}</p>
+        <ul>
+            <li><p>{{recipe.description}}</p></li>
+            <li><p>{{recipe.ingredients}}</p></li>
+            <li><p>{{recipe.instructions}}</p></li>
+        </ul>
 
         {{#if error}}
             <p class="errorMessage">{{error}}</p>
