@@ -9,7 +9,7 @@ course)
 - The code uses Node.js, Express, Handlebars and SQLite3,
 - The final website is a one-page dynamic application, the menu MUST 
 contain at least: Home, List (can be renamed depending on your project choice), About, Contact,
-- **The Database has at least two tables (at least 5 records) that are displayed on the pages, the tables have at least 3 fields,**
+- The Database has at least two tables (at least 5 records) that are displayed on the pages, the tables have at least 3 fields,
 - The menu “List” must link to a page displaying the list of elements
 (except the user table used for grade 5) from one of your tables, a
 detailed view of one element is given when you click on it,
@@ -18,7 +18,7 @@ detailed view of one element is given when you click on it,
 “wdf#2025”,
 - Usage of SELECT/INSERT/UPDATE/DELETE (CRUD) operations to
 display/modify one table,
-- **Acceptable UI/UX using basic CSS.**
+- Acceptable UI/UX using basic CSS.
 
 ----------------- 4 PUNTOS -----------------
 
