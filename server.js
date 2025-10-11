@@ -29,7 +29,7 @@ app.engine('handlebars',
 ) // initialize the engine to be handlebars
 app.set('view engine', 'handlebars') // set handlebars as the view engine
 app.set('views', './views') // define the views directory to be ./views
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 /* -------------------------------------------- */
 /* ------------ DB conection ------------ */
 db = new sqlite3.Database('orangeKaffeDB.sqlite') //loads the database and puts its content in the "db" variable
@@ -154,7 +154,8 @@ app.get('/list/:recipe_id', function(req, res) {
 app.get('/list/update/:recipe_id', (req, res) => {
     let myRecipeId= req.params.recipe_id
     if (req.session.isAdmin) {
-        db.get('SELECT * FROM recipes WHERE recipe_id?', [myRecipeId], (error, theRecipe) => {
+        db.get('SELECT * FROM recipes WHERE recipe_id=?', [myRecipeId], (error, theRecipe) => {
+        console.log(`-->Editing the recipe: ${JSON.stringify(theRecipe)}`)
             if (error) {
                 console.error(error.message);
                 const model = {error: "Error geting the recipe from DB"}
@@ -167,6 +168,25 @@ app.get('/list/update/:recipe_id', (req, res) => {
     } else {
         model = {error: "You need to be logged in to do this :( "}
         res.render('login', model);
+    }
+});
+app.post('/list/update/:recipe_id', (req, res) => {
+    let myRecipeId = req.params.recipe_id
+    const {title, desc, ingred, instruc, credits, categid} = req.body
+    if(req.session.isAdmin) {
+        db.run('UPDATE recipes SET title=?, description=?, ingredients=?, instructions=?, credits=?, category_id=? WHERE recipe_id=?', [title, desc, ingred, instruc, credits, categid, myRecipeId], (error) => {
+            if (error) {
+                console.error(error.message)
+                const model = {error: "Error updating the Recipe :( "}
+                res.render('list', model);
+            } else {
+                console.log('Recipe succesfully updated :) ')
+                res.redirect('/list')
+            }
+        })
+    } else {
+        model = {error: "You need to be logged in to modify a Recipe"}
+        res.render('list', model)
     }
 });
 //-------------- DELETE
@@ -188,15 +208,12 @@ app.post('/list/delete/:recipe_id', (req, res) => {
         res.render('login', model)
     }
 });
-
 app.get('/about', (req, res) => {
     res.render('about')
 });
-
 app.get('/contact', (req, res) => {
     res.render('contact')
 });
-
 /* ------------------------ */
 function hashPassword(pw, saltRounds) {
     bcrypt.hash(pw, saltRounds, function(error, hash) {

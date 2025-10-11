@@ -5,9 +5,9 @@
 {{/if}}
 <div id="main">
     {{#if recipe.recipe_id}}
-        <form method="POST" action="/list/update/{{recipe.recipe_id}}" id="recipeform">
+        <form action="/list/update/{{recipe.recipe_id}}" method="post" id="recipeform">
     {{else}}
-        <form method="POST" action="/list/new" id="recipeform">
+        <form action="/list/new" method="post" id="recipeform">
     {{/if}}
         <fieldset>
             <legend>RECIPE</legend>
@@ -23,13 +23,16 @@
             <textarea name="ingred" id="ingred" rows="8", cols="40">{{#if recipe.ingredients}}{{recipe.ingredients}}{{/if}}</textarea>
             <br />
             <label for="instruc">Instructions</label>
-            <textarea name="intruc" id="instruc" rows="8", cols="40">{{#if recipe.Instructions}}{{recipe.instruccions}}{{/if}}</textarea>
+            <textarea name="instruc" id="instruc" rows="8", cols="40">{{#if recipe.instructions}}{{recipe.instructions}}{{/if}}</textarea>
             <br />
             <label for="credits">Category</label>
             <select name="categ" id="categ">
-                <option value=1 {{#if recipe.categoryid == 1}} selected {{/if}}>Drink</option>
-                <option value=2 {{#if recipe.categoryid == 2}} selected {{/if}}>Dessert</option>
-                <option value=3 {{#if recipe.categoryid == 3}} selected {{/if}}>Smoothie</option>
+                <option value=1 {{#if (eq recipe.category_id 1)}} selected {{/if}}
+                >Drink</option>
+                <option value=2 {{#if (eq recipe.category_id 2)}} selected {{/if}}
+                >Dessert</option>
+                <option value=3 {{#if (eq recipe.category_id 3)}} selected {{/if}}
+                >Smoothie</option>
             </select>
             <br />  
             <label for="title">Credits</label>
@@ -37,7 +40,7 @@
             {{#if recipe.credits}} value="{{recipe.credits}}"{{/if}}
             />
             <br />
-            <input type="submit" value="Add Recipe"> 
+            <input type="submit" value="Add Recipe"/> 
         </fieldset>
     </form>
     {{#if error}}
