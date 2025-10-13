@@ -1,0 +1,16 @@
+<h1 class="pageTitle">PERSONAL RECOMENDATIONS FOR COFFE SHOPS </h1>
+<div id="main">
+    <ol>
+        {{#each cshop}}
+            <ul>
+                <li><h2>{{shop_name}}</hs></li>
+                <li><p>{{shop_location}}</p></li>
+                <li><a href="{{page_url}}">Web Page</a></li>
+                <br>
+            </ul>
+        {{/each}}
+    </ol>
+    {{#if error}}
+        <p class="errorMessage">{{error}}</p>
+    {{/if}}
+</div>

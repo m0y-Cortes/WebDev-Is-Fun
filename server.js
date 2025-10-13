@@ -1,12 +1,7 @@
 /* Moises Cortes - moiseskhana€gmail.com    Portfolio JL -2025*/
 
 //const adminPassword = 'wdf#2025'
-/* 
-const cookieParser = require('cookie-parser') // reads a cookie
-const lastVisit = parseInt(request.cookies.lastVisit)
-let firstName = request.cookie.firstName 
-app.use(cookieParser())
-*/
+
 const express = require('express');
 const { engine } = require('express-handlebars');
 const bcrypt = require('bcrypt')
@@ -95,15 +90,32 @@ app.get('/logout', (req, res) => {
 });
 
 //-------------- LISTING VIEW
-app.get('/list', function(req, res) {
-    db.all('SELECT * FROM recipes ', (error, recipesList) => {
-        if (error) {
-            res.send('Sorry an error ocurred :(' + error.message)
-        } else {
-            model= {recipes: recipesList}
-            res.render('list.handlebars', model)
-        }
-    })
+app.get('/list', function (req, res) {
+  const sql = `
+    SELECT 
+      recipes.recipe_id,
+      recipes.title,
+      recipes.description,
+      recipes.ingredients,
+      recipes.instructions,
+      recipes.credits,
+      recipes.category_id,
+      categories.category_name
+    FROM recipes
+    INNER JOIN categories 
+      ON recipes.category_id = categories.category_id
+    ORDER BY recipes.recipe_id ASC
+  `;
+
+  db.all(sql, (error, recipesList) => {
+    if (error) {
+      console.error("Error fetching recipes:", error.message);
+      return res.send('Sorry, an error occurred :( ' + error.message);
+    }
+
+    const model = { recipes: recipesList };
+    res.render('list.handlebars', model);
+  });
 });
 //-------------- CREATE
 app.get('/list/new', (req, res) => {
@@ -213,6 +225,18 @@ app.get('/about', (req, res) => {
 });
 app.get('/contact', (req, res) => {
     res.render('contact')
+});
+app.get('/recomendations', function (req, res) {
+    db.all('SELECT * FROM coffeeshops', (error, coffeelist) => {
+        if (error) {
+            console.error("Error fetching recomendations:", error.message);
+            return res.send('Sorry, an error occurred :( ' + error.message);
+        } else{
+            console.log(`-->Retrieving the cshops: ${JSON.stringify(coffeelist)}`)
+            model = { cshop: coffeelist };
+            res.render('recomendations', model)
+        }
+    })
 });
 /* ------------------------ */
 function hashPassword(pw, saltRounds) {

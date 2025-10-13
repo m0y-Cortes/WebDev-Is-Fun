@@ -1,3 +1,21 @@
+# INSTRUCTIONS FOR DOWNLOADING AND RUNNING
+**Requirements:** 
+- Node.js recomended v18+
+- npm 
+
+## 1- Clone Github repository
+git clone https://github.com/m0y-Cortes/WebDev-Is-Fun.git
+cd tu-repositorio
+
+## 2- Install dependencies
+npm install
+
+## 3- Execute the app
+node server.js
+Open in your browser: http://localhost:3000
+
+# EXAMPLE
+![example in terminal](/public/images/image.png)
 Wednesday, 22 October 2025 BEFORE 12:00
 • Submit only one zip (compressed) file of your project
 directory (without the ”node_modules” directory, of
@@ -23,7 +41,7 @@ display/modify one table,
 ----------------- 4 PUNTOS -----------------
 
 ### -Requirements for grade 3 above PLUS:
-- **Database with three or more tables (at least 5 records in each table), two of them being linked (SQL INNER JOIN) in at least one query (that is used in the pages),**
+- Database with three or more tables (at least 5 records in each table), two of them being linked (SQL INNER JOIN) in at least one query (that is used in the pages),
 - *There is a list with a dynamic pagination system (at least 3 pages with 3 elements per page) for one table (so, at least 9 records in this table),*
 - **Moderate UI/UX with Flexbox or Grid CSS.**
 
