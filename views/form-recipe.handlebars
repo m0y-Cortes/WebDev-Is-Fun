@@ -45,9 +45,14 @@
                 >Specialty Items</option>
             </select>
             <br />  
-            <label for="title">Credits</label>
+            <label for="credits">Credits</label>
             <input type="text" name="credits" id="credits"
             {{#if recipe.credits}} value="{{recipe.credits}}"{{/if}}
+            />
+            <br />
+            <label for="img">Image</label>
+            <input type="text" name="img" id="img"
+            {{#if recipe.image_url}} value="{{recipe.img_url}}"{{/if}}
             />
             <br />
             <input type="submit" value="Add Recipe"/> 

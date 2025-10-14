@@ -1,16 +1,17 @@
-<h1 class="pageTitle">PERSONAL RECOMENDATIONS FOR COFFE SHOPS </h1>
-<div id="main">
-    <ol>
-        {{#each cshop}}
-            <ul>
-                <li><h2>{{shop_name}}</hs></li>
-                <li><p>{{shop_location}}</p></li>
-                <li><a href="{{page_url}}">Web Page</a></li>
-                <br>
-            </ul>
-        {{/each}}
-    </ol>
-    {{#if error}}
-        <p class="errorMessage">{{error}}</p>
-    {{/if}}
-</div>
+<main class="recs-page">
+  <h1 class="pageTitle">PERSONAL RECOMMENDATIONS FOR COFFEE SHOPS</h1>
+
+  <section class="recs-cardlist">
+    {{#each cshop}}
+      <article class="rec-card">
+        <h2 class="rec-title">{{this.shop_name}}</h2>
+        <p class="rec-sub">{{this.shop_location}}</p>
+        <a class="rec-link" href="{{this.page_url}}" target="_blank" rel="noopener">Visit website</a>
+      </article>
+    {{/each}}
+  </section>
+
+  {{#if error}}
+    <p class="errorMessage">{{error}}</p>
+  {{/if}}
+</main>

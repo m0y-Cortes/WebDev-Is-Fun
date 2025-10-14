@@ -1,25 +1,30 @@
 <h1 class="pageTitle">RECIPES PAGE</h1>
-<div id="main">
-    <div>
+    <div class="list-btns">
+        <a href="/" class="defBtn">← Back to HOME</a>
         {{#if session.isAdmin}}
-            <a href="/list/new">Add a recipe</a>
+            <a href="/list/new" class="defBtn">+ Add a recipe</a>
         {{/if}}
     </div>
+<div id="main">
     {{#each recipes}}
         <div class="card-container">
             <div class="card">
-                <img src="/images/defaultCardImage.jpg">
+                {{#if img_url}}
+                    <img src="{{img_url}}" alt="Recipe Image">
+                {{else}}
+                    <img src="/images/defaultCardImage.jpg" alt="Recipe Image">
+                {{/if}}
                 <div class="card-content">
                     <h3>{{title}}</h3>
-                    <p>{{category_name}}</p>
+                    <p class="tag">{{category_name}}</p>
                     <p>{{description}}</p>
                     <p>By - {{credits}}</p>
                     <a href="/list/{{recipe_id}}" class="btn"> See recipe</a>
                     <form style="display: inline;" method="get" action="/list/update/{{recipe_id}}">
-                        <button type="submit">Edit</button>
+                        <button type="submit" class="formBtn">Edit</button>
                     </form>
                     <form style="display: inline;" method="POST" action="/list/delete/{{recipe_id}}">
-                        <button type="submit">Delete</button>
+                        <button type="submit" class="formBtn">Delete</button>
                     </form>
                 </div>
             </div>
@@ -29,3 +34,24 @@
         <p class="errorMessage">{{error}}</p>
     {{/if}}
 </div>
+<nav class="pagination">
+    {{#if pagination.hasPrev}}
+        <a href="/list?page={{pagination.prevPage}}" class="page-link">« Prev</a>
+    {{else}}
+        <span class="page-link disabled">« Prev</span>
+    {{/if}}
+
+    {{#each pages}}
+        {{#if (eq this ../pagination.currentPage)}}
+        <span class="page-num current">{{this}}</span>
+        {{else}}
+        <a class="page-num" href="/list?page={{this}}">{{this}}</a>
+        {{/if}}
+    {{/each}}
+
+    {{#if pagination.hasNext}}
+        <a href="/list?page={{pagination.nextPage}}" class="page-link">Next »</a>
+    {{else}}
+        <span class="page-link disabled">Next »</span>
+    {{/if}}
+</nav>

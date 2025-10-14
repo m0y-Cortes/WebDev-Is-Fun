@@ -1,6 +1,20 @@
-/* Moises Cortes - moiseskhana€gmail.com    Portfolio JL -2025*/
+/* 
+Moises Cortes - moiseskhana€gmail.com
 
-//const adminPassword = 'wdf#2025'
+Target grade: 4
+
+Project WebDev Fun 2025
+
+Admin login: admin
+Admin password: wdf#2025 ---> "$2b$12$IPFhrIOq9SqSR5tPX85IgeAJLfn0ITVQWtsf2XT1CtH8btUfEumuu"
+
+Used ChatGPT for the CSS and correct a couple of routes
+images used from:
+- https://unsplash.com
+- https://www.istockphoto.com
+- 
+
+*/
 
 const express = require('express');
 const { engine } = require('express-handlebars');
@@ -91,30 +105,61 @@ app.get('/logout', (req, res) => {
 
 //-------------- LISTING VIEW
 app.get('/list', function (req, res) {
-  const sql = `
-    SELECT 
-      recipes.recipe_id,
-      recipes.title,
-      recipes.description,
-      recipes.ingredients,
-      recipes.instructions,
-      recipes.credits,
-      recipes.category_id,
-      categories.category_name
-    FROM recipes
-    INNER JOIN categories 
-      ON recipes.category_id = categories.category_id
-    ORDER BY recipes.recipe_id ASC
-  `;
-
-  db.all(sql, (error, recipesList) => {
-    if (error) {
-      console.error("Error fetching recipes:", error.message);
-      return res.send('Sorry, an error occurred :( ' + error.message);
+  const pageSize = 3;
+  let page = parseInt(req.query.page, 10);
+  if (isNaN(page) || page < 1) page = 1;
+  db.get('SELECT COUNT(*) AS count FROM recipes', (errCount, row) => {
+    if (errCount) {
+      console.error('Error counting recipes:', errCount.message);
+      return res.send('Sorry, an error occurred :( ' + errCount.message);
     }
+    const totalItems = row.count || 0;
+    const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+    if (page > totalPages) page = totalPages;
 
-    const model = { recipes: recipesList };
-    res.render('list.handlebars', model);
+    const offset = (page - 1) * pageSize;
+    const sql = `
+      SELECT 
+        recipes.recipe_id,
+        recipes.title,
+        recipes.description,
+        recipes.ingredients,
+        recipes.instructions,
+        recipes.credits,
+        recipes.img_url,
+        recipes.category_id,
+        categories.category_name
+      FROM recipes
+      INNER JOIN categories 
+        ON recipes.category_id = categories.category_id
+      ORDER BY recipes.recipe_id ASC
+      LIMIT ? OFFSET ?
+    `;
+    db.all(sql, [pageSize, offset], (error, recipesList) => {
+      if (error) {
+        console.error("Error fetching recipes:", error.message);
+        return res.send('Sorry, an error occurred :( ' + error.message);
+      }
+      const pages = [];
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+      const model = {
+        recipes: recipesList,
+        pagination: {
+          currentPage: page,
+          totalPages,
+          hasPrev: page > 1,
+          hasNext: page < totalPages,
+          prevPage: Math.max(1, page - 1),
+          nextPage: Math.min(totalPages, page + 1),
+          totalItems,
+          pageSize
+        },
+        pages
+      };
+      res.render('list.handlebars', model);
+    });
   });
 });
 //-------------- CREATE
@@ -128,9 +173,9 @@ app.get('/list/new', (req, res) => {
 });
 app.post('/list/new', (req, res) => {
     console.log(`Here comes the data received from the form on the client: ${JSON.stringify(req.body)} `)
-    const {title, desc, ingred, instruc, credits, categid} = req.body
+    const {title, desc, ingred, instruc, credits, img, categid} = req.body
     if (req.session.isAdmin) {
-        db.run('INSERT INTO recipes (title, description, ingredients, instructions, credits, category_id) VALUES (?, ?, ?, ?, ?, ?)', [title, desc, ingred, instruc, credits, categid], (error) => {
+        db.run('INSERT INTO recipes (title, description, ingredients, instructions, credits, img_url, category_id) VALUES (?, ?, ?, ?, ?, ?, ?)', [title, desc, ingred, instruc, credits, img, categid], (error) => {
             if (error) {
                 console.error(error.message);
                 const model = {error: "Error inserting the new recipe into de DB :( "}
@@ -184,9 +229,9 @@ app.get('/list/update/:recipe_id', (req, res) => {
 });
 app.post('/list/update/:recipe_id', (req, res) => {
     let myRecipeId = req.params.recipe_id
-    const {title, desc, ingred, instruc, credits, categid} = req.body
+    const {title, desc, ingred, instruc, credits, img, categid} = req.body
     if(req.session.isAdmin) {
-        db.run('UPDATE recipes SET title=?, description=?, ingredients=?, instructions=?, credits=?, category_id=? WHERE recipe_id=?', [title, desc, ingred, instruc, credits, categid, myRecipeId], (error) => {
+        db.run('UPDATE recipes SET title=?, description=?, ingredients=?, instructions=?, credits=?, img_url=?, category_id=? WHERE recipe_id=?', [title, desc, ingred, instruc, credits, img, categid, myRecipeId], (error) => {
             if (error) {
                 console.error(error.message)
                 const model = {error: "Error updating the Recipe :( "}

@@ -1,14 +1,19 @@
-<h1 class="pageTitle">{{recipe.title}}</h1>
-<div id="main">
-    <div>
-        <ul>
-            <li><p>{{recipe.description}}</p></li>
-            <li><p>{{recipe.ingredients}}</p></li>
-            <li><p>{{recipe.instructions}}</p></li>
-        </ul>
+<main class="recipe-container">
+    <h1 class="pageTitle">{{recipe.title}}</h1>
+
+    <section class="recipe-card">
+        <p class="recipe-description">{{recipe.description}}</p>
+
+        <h2>Ingredients</h2>
+        <p class="recipe-instructions">{{recipe.ingredients}}</p>
+
+        <h2>Instructions</h2>
+        <p class="recipe-instructions">{{recipe.instructions}}</p>
 
         {{#if error}}
             <p class="errorMessage">{{error}}</p>
         {{/if}}
-    </div>
-</div>
+    </section>
+
+    <a href="/list" class="back-btn">← Back to recipes</a>
+</main>
