@@ -12,6 +12,7 @@ Used ChatGPT for the CSS and correct a couple of routes
 images used from:
 - https://unsplash.com
 - https://www.istockphoto.com
+- brandslogos.com
 - 
 
 */

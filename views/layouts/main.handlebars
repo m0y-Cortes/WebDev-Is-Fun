@@ -3,6 +3,10 @@
 <head>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;300;400;900&display=swap  ');
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Honk&display=swap');
+
     </style>    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,18 +15,18 @@
 </head>
 <header>  {{!-- A NavBar that is always present --}}
     <ul>
-        <li><img class="headerIcon" src="/images/chef-hat.svg" alt="chef-hat"></li>
         <li><a href="/">ORANGE KAFFE</a></li>
         <li><a href="/about">ABOUT</a></li>
         <li><a href="/contact">CONTACT</a></li>
-        {{#if session.isLoggedIn}}
-            <li style="color: white;">VÄLKOMMEN {{session.username}}!</li>
-            <li><a href="/logout">LOG OUT</a></li>
-        {{else}}
-            <li><a href="/login">LOGIN</a></li>
-        {{/if}}
-
-        {{!-- <li style="float:right"><img class="headerIcon" src="/images/chef-hat.svg" alt="chef-hat"></li> Here goes the user icon --}}
+        <li>
+            {{#if session.isLoggedIn}}
+                <p>VÄLKOMMEN {{session.username}}!</p>
+                <img class="headerIcon" src="/images/chef-hat.svg" alt="chef-hat">
+                <a href="/logout">LOG OUT</a>
+            {{else}}
+                <a href="/login">LOGIN</a>
+            {{/if}}
+        </li>
     </ul>
 </header>
 <body>

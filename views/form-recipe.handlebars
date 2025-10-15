@@ -1,9 +1,9 @@
-{{#if recipe.recipe_id}}
-    <h1 class="pageTitle">Edit Recipe</h1>
-{{else}}
-    <h1 class="pageTitle">New Recipe</h1>
-{{/if}}
 <div id="main">
+    {{#if recipe.recipe_id}}
+        <h1 class="pageTitle">Edit Recipe</h1>
+    {{else}}
+        <h1 class="pageTitle">New Recipe</h1>
+    {{/if}}
     {{#if recipe.recipe_id}}
         <form action="/list/update/{{recipe.recipe_id}}" method="post" id="recipeform">
     {{else}}

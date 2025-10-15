@@ -1,18 +1,18 @@
-<h1 class="pageTitle">RECIPES PAGE</h1>
+<div id="main">
+    <h1 class="pageTitle">RECIPES PAGE</h1>
     <div class="list-btns">
         <a href="/" class="defBtn">← Back to HOME</a>
         {{#if session.isAdmin}}
             <a href="/list/new" class="defBtn">+ Add a recipe</a>
         {{/if}}
     </div>
-<div id="main">
     {{#each recipes}}
         <div class="card-container">
             <div class="card">
                 {{#if img_url}}
                     <img src="{{img_url}}" alt="Recipe Image">
                 {{else}}
-                    <img src="/images/defaultCardImage.jpg" alt="Recipe Image">
+                    <img src="/images/foodmix.jpg" alt="Recipe Image">
                 {{/if}}
                 <div class="card-content">
                     <h3>{{title}}</h3>

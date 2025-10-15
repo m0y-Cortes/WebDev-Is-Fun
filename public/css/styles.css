@@ -3,7 +3,7 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
 }
 body {
   background-color: beige;
@@ -20,7 +20,7 @@ button:hover{
   font-family: "Londrina Solid", sans-serif;
   font-weight: 400;
   font-size: 4rem;
-
+  width: 100%;
   text-align: center;
   color: #6e3405;
   margin-bottom: 1.5rem;
@@ -57,16 +57,26 @@ header ul{
   padding: 0;
   background-color: #ca6818;
   display: flex;
+  flex-wrap: wrap;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
   margin: 20px;
+  font-family: "Akaya Kanadaka", system-ui;
+  font-size: 28px;
 }
 header ul li {
   display: flex;
   align-items: center;
+  margin-inline: auto;
 }
 header ul li a {
+  display: block;
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+header ul li p {
   display: block;
   color: white;
   padding: 14px 16px;
@@ -76,9 +86,9 @@ header ul li a:hover {
   background-color: #f16d00;
 }
 header ul li img {
-  height: 24px; /* tamaño del icono */
+  height: 32px; /* tamaño del icono */
   width: auto;
-  padding-inline: 10px;
+  padding-inline: 5px;
   vertical-align: middle;
 }
 /*------------ LOGIN ------------*/
@@ -90,7 +100,7 @@ header ul li img {
 /*------------ HOME/LIST CARDS ------------*/
 .list-btns {
   display: flex;
-  align-items: center;
+  width: 100%;
   justify-content: space-between;
   flex-wrap: wrap;
 }
@@ -211,7 +221,6 @@ header ul li img {
   border-bottom: 2px solid #f0d8c0;
   padding-bottom: 0.3rem;
 }
-
 .recipe-description {
   font-style: italic;
   color: #555;
@@ -233,13 +242,11 @@ header ul li img {
   border-radius: 8px;
   transition: background 0.2s ease;
 }
-
 .back-btn:hover {
   background-color: #b35b12;
 }
 
 /* === Reusable simple card list (for recommendations, recipes, etc.) === */
-
 .recs-page {
   max-width: 900px;
   margin: 48px auto;
@@ -250,7 +257,6 @@ header ul li img {
   font-family: "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
   color: #333;
 }
-
 /* Container that arranges cards responsively */
 .recs-cardlist {
   display: grid;
@@ -258,7 +264,6 @@ header ul li img {
   gap: 16px;
   margin-top: 12px;
 }
-
 /* Single card */
 .rec-card {
   background: #fff;
@@ -271,13 +276,11 @@ header ul li img {
   gap: 8px;
   min-height: 120px;
 }
-
 /* Hover lift effect */
 .rec-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
-
 /* Title and subtitle */
 .rec-title {
   margin: 0;
@@ -285,7 +288,6 @@ header ul li img {
   color: #222;
   line-height: 1.2;
 }
-
 .rec-sub {
   margin: 0;
   color: #6b6b6b;
@@ -294,7 +296,6 @@ header ul li img {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 /* Link */
 .rec-link {
   margin-top: auto; /* pushes link to the bottom of the card */
@@ -308,14 +309,45 @@ header ul li img {
   align-self: start;
   transition: background 0.15s ease, transform 0.08s ease;
 }
-
 .rec-link:hover {
   background: #b35b12;
   transform: translateY(-2px);
 }
-
-/* Small screens adjustments */
-@media (max-width: 480px) {
-  .recs-page { padding: 12px; margin: 24px 12px; }
-  .pageTitle { font-size: 1.4rem; }
+/*------------ABOUT ME ------------*/
+.aboutTitle {
+  font-family: "Honk", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 10vw;
+  font-style: normal;
+  font-variation-settings:
+    "MORF" 15,
+    "SHLN" 100;
+}
+.about {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 70%;
+  font-family: "Comic Relief", system-ui;
+  font-weight: 400;
+  font-size: 24px;
+}
+.about-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgb(218, 218, 218);
+  padding: 3rem;
+  margin: 2rem;
+  border: 8px solid rgb(0, 92, 230);
+  border-top: 32px solid rgb(0, 92, 230);
+  border-radius: 5px;
+}
+.about-block .imagenes{
+  width: 100%;
+}
+.about-logo {
+  width: 8rem;
+  height: auto;
 }
