@@ -1,28 +1,27 @@
-<div id="loginForm">
+<div id="main">
   <h1 class="pageTitle">Log In</h1>
   {{#if error}}
     <p class="errorMessage">{{error}}</p>
   {{/if}}
-  
-  <form method="POST" action="/login">
+
+  <form class="form-card" action="/login" method="post">
     <fieldset>
-        <div>
-          <label>
-            Username:
-            <input type="text" name="username" />
-          </label>
+      <div class="form-grid">
+
+        <div class="form-row">
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" placeholder="Your username">
         </div>
-        <br/><br/>
-        <div>
-        
-          <label>
-            Password:
-            <input type="password" name="password" />
-          </label>
+
+        <div class="form-row">
+          <label for="password">Username</label>
+          <input type="password" name="password" id="password" placeholder="Your password">
         </div>
-        <br/><br/>
-      <div>
-        <button type="submit">Enter</button>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Enter</button>
+        </div>
+
       </div>
     </fieldset>
   </form>
