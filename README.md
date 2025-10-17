@@ -21,6 +21,8 @@ Wednesday, 22 October 2025 BEFORE 12:00
 directory (without the ”node_modules” directory, of
 course)
 
+*You need to be logged in for some buttons to be visible.*
+
 ----------------- 3 PUNTOS -----------------
 
 - The code works without error, there are sufficient comments in the code,
@@ -43,14 +45,4 @@ display/modify one table,
 ### -Requirements for grade 3 above PLUS:
 - Database with three or more tables (at least 5 records in each table), two of them being linked (SQL INNER JOIN) in at least one query (that is used in the pages),
 - There is a list with a dynamic pagination system (at least 3 pages with 3 elements per page) for one table (so, at least 9 records in this table),
-- **Moderate UI/UX with Flexbox or Grid CSS.**
-
------------------ 5PUNTOS -----------------
-
--Requirement for grade 4 above PLUS:
-- Create a complete user management system: create new user with
-hashed password, listing, updating, and deleting users
-(SELECT/INSERT/UPDATE/DELETE in your users' table), the users can log
-in on your website,
-- Advanced UI/UX being fully responsive (computer, tablet, and phone) with
-Flexbox or Grid CSS or a CSS Framework.
+- Moderate UI/UX with Flexbox or Grid CSS.
