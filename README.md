@@ -21,7 +21,9 @@ Wednesday, 22 October 2025 BEFORE 12:00
 directory (without the ”node_modules” directory, of
 course)
 
-*You need to be logged in for some buttons to be visible.*
+# TIPS AND EXTRA INFO
+- *You need to be logged in for some buttons to be visible. For example: Add Recipe*
+- *If for some reason the database doesn't work or is empty there is a .sql file with the necesary tables schemas and data to populate it in the DB-schema-data directory*
 
 ----------------- 3 PUNTOS -----------------
 
